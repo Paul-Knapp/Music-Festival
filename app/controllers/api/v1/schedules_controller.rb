@@ -1,7 +1,13 @@
 class Api::V1::SchedulesController < ApplicationController
 
     def index
-        schedules= Schedule.all
-        render json: schedules
+        if params[:user_id]
+            user = User.find(params[:user_id])
+            schedules = user.schedules
+            render json: ScheduleSerializer.new(schedules)
+        else
+            schedules = Schedule.all
+            render json: ScheduleSerializer.new(schedules)
+        end
     end
 end
