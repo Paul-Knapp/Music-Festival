@@ -5,12 +5,13 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-   namespace :api do
-        namespace :v1 do
-            resources :schedules, only: [:index]
-                delete 'remove_show/:show_id', to: 'schedules#remove_show', as: 'remove_show'
-                get 'schedules/:user_id', to: 'schedules#index', as: 'user_schedules'
-            resources :users, only: [:index]
-        end
+  namespace :api do
+    namespace :v1 do
+      resources :schedules, only: [:index] do
+        get ':user_id', to: 'schedules#index', on: :collection, as: 'user_schedules'
+        delete ':schedule_id/remove_show/:show_id', to: 'schedules#remove_show', as: 'remove_show'
+      end
+      resources :users, only: [:index]
     end
+  end
 end
