@@ -10,6 +10,7 @@ Rails.application.routes.draw do
             get 'schedules/:user_id', to: 'schedules#index', as: 'user_schedules'
 
             resources :schedules, only: [:index]
+            resources :users, only: [:index]
         end
     end
 end
