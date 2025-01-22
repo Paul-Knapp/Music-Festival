@@ -7,9 +7,9 @@ Rails.application.routes.draw do
 
    namespace :api do
         namespace :v1 do
-            get 'schedules/:user_id', to: 'schedules#index', as: 'user_schedules'
-
             resources :schedules, only: [:index]
+                delete 'remove_show/:show_id', to: 'schedules#remove_show', as: 'remove_show'
+                get 'schedules/:user_id', to: 'schedules#index', as: 'user_schedules'
             resources :users, only: [:index]
         end
     end
